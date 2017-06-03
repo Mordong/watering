@@ -1,6 +1,8 @@
 #!/bin/bash
 
 SLEEP_TIME=3 # timeout for check cycle in seconds
+REPORT=watering_report.txt
+C_START=`date -u +"%d/%m/%Y %H:%M:%S"`
 
 declare -a control=(1 2 3 4) #number of pairs sensor/relay
 declare -A SENSOR=([P1]=4 [P2]=17 [P3]=27 [P4]=22) #set GPIO numbers for sensors
@@ -10,8 +12,8 @@ declare -A STATUS=([P1]=0 [P2]=0 [P3]=0 [P4]=0) #0 - dry, 1 - wet
 
 function Report {
 
-echo "Sensor : " ${SENSOR['P'$pair]} " and Relay : " ${RELAY['P'$pair]}
-echo "Pair: $pair - Status: ${STATUS['P'$pair]}"
+echo "Sensor : " ${SENSOR['P'$pair]} " and Relay : " ${RELAY['P'$pair]} >>$REPORT
+echo "Pair: $pair - Status: ${STATUS['P'$pair]}" >>$REPORT
 
 }
 
@@ -24,7 +26,7 @@ done;
 while [ true ]; do
 
 	for pair in "${control[@]}"; do
-
+	
 	SENS=${SENSOR['P'$pair]}
 	REL=${RELAY['P'$pair]}
 	echo "in" > /sys/class/gpio/gpio$SENS/direction
@@ -41,10 +43,12 @@ while [ true ]; do
 	fi
 Report;	
 	done;
-
-if [[ "${STATUS[@]}" =~ "Dry" ]]; then true; else exit 0; fi
+C_END=`date -u +"%d/%m/%Y %H:%M:%S"`
+if [[ "${STATUS[@]}" =~ "Dry" ]]; then true; else echo "Started at   $C_START">>$REPORT&&echo "Completed at $C_END" >>$REPORT&&exit 0; fi
 
 sleep $SLEEP_TIME;
+>$REPORT
+
 done;
 
 exit 0
