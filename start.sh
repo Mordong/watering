@@ -39,7 +39,7 @@ LAST_RESULT="Connected/disconnected from REC session"
 function WatConnect
 {
 screen -x WAT
-LAST_RESULT="Connected/disconnected from REC session"
+LAST_RESULT="Connected/disconnected from WAT session"
 }
 
 function RenConv
