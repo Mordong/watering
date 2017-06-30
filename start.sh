@@ -33,7 +33,13 @@ LAST_RESULT=`screen -ls`
 function RecConnect
 {
 screen -x REC
-LAST_RESULT="Disconnected from REC session"
+LAST_RESULT="Connected/disconnected from REC session"
+}
+
+function WatConnect
+{
+screen -x WAT
+LAST_RESULT="Connected/disconnected from REC session"
 }
 
 function RenConv
@@ -76,11 +82,12 @@ function MainMenu
   echo "$(tput sgr 0)"
   echo "$(tput setaf 2)Please choose your action:$(tput sgr 0)"
   echo "1 - start recording"
-  echo "2 - check screened recording"
+  echo "2 - check screened sessions"
   echo "3 - connect to REC session"
   echo "4 - rename and convert recorded files"
   echo "5 - clean up all directories"
   echo "6 - start watering"
+  echo "7 - connect to WAT session"
   
   echo "0 - exit"
   echo ""
@@ -103,6 +110,7 @@ ShowLastActionResult
 	  4) RenConv;;
 	  5) CleanUp;;
 	  6) Watering;;
+	  7) WatConnect;;
 
 	  *) ;;
 	esac
