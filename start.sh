@@ -60,6 +60,12 @@ rm -rf /usb/video/*
 LAST_RESULT="/usb directories cleaned"
 }
 
+function Watering
+{
+screen -dmS WAT /scripts/watering.sh &
+LAST_RESULT="Watering started"
+}
+
 ## Menus
 function MainMenu
 {
@@ -74,6 +80,7 @@ function MainMenu
   echo "3 - connect to REC session"
   echo "4 - rename and convert recorded files"
   echo "5 - clean up all directories"
+  echo "6 - start watering"
   
   echo "0 - exit"
   echo ""
@@ -95,6 +102,7 @@ ShowLastActionResult
 	  3) RecConnect;;
 	  4) RenConv;;
 	  5) CleanUp;;
+	  6) Watering;;
 
 	  *) ;;
 	esac
