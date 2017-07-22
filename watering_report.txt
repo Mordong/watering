@@ -1,0 +1,8 @@
+Sensor :  4  and Relay :  18
+Pair: 1 - Status: Dry
+Sensor :  17  and Relay :  23
+Pair: 2 - Status: Dry
+Sensor :  27  and Relay :  24
+Pair: 3 - Status: Dry
+Sensor :  22  and Relay :  25
+Pair: 4 - Status: Dry

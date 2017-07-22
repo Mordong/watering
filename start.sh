@@ -11,6 +11,12 @@ function ShowLastActionResult
   echo "╚════════════════════════════════════════════════════════════════$(tput sgr 0)"
 }
 
+function Streaming
+{
+screen -dmS STREAM /scripts/stream.sh &
+LAST_RESULT="Streaming to Youtube stated"
+}
+
 function RecStart
 {
 read -p "$(tput setaf 2)USB camera - 1 or PI camera - 2 : $(tput sgr 0)" cam_ch
@@ -88,6 +94,7 @@ function MainMenu
   echo "5 - clean up all directories"
   echo "6 - start watering"
   echo "7 - connect to WAT session"
+  echo "8 - start streaming to Youtube"
   
   echo "0 - exit"
   echo ""
@@ -111,6 +118,7 @@ ShowLastActionResult
 	  5) CleanUp;;
 	  6) Watering;;
 	  7) WatConnect;;
+	  8) Streaming;;
 
 	  *) ;;
 	esac
