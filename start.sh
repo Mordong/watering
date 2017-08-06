@@ -17,6 +17,18 @@ screen -dmS STREAM /scripts/stream.sh &
 LAST_RESULT="Streaming to Youtube stated"
 }
 
+function CamShot
+{
+read -p "$(tput setaf 2)USB camera - 1 or PI camera - 2 : $(tput sgr 0)" cam_ch
+SHOT_L="/var/www/html/latest.jpg"
+case $cam_ch in
+        1) fswebcam -r 1280x720 $SHOT_L;;
+        2) raspistill -w 1280 -h 720 -e jpg -o $SHOT_L;;
+        *) ;;
+esac
+LAST_RESULT="Shot made to $SHOT_L"
+}
+
 function RecStart
 {
 read -p "$(tput setaf 2)USB camera - 1 or PI camera - 2 : $(tput sgr 0)" cam_ch
@@ -27,7 +39,7 @@ case $cam_ch in
 	*) ;;
 esac
 
-screen -dmS REC /scripts/cam.sh &
+screen -dmS REC /scripts/$CAM_SH &
 LAST_RESULT="Recording started"
 }
 
@@ -88,13 +100,14 @@ function MainMenu
   echo "$(tput sgr 0)"
   echo "$(tput setaf 2)Please choose your action:$(tput sgr 0)"
   echo "1 - start recording"
-  echo "2 - check screened sessions"
+  echo "2 - list screened sessions"
   echo "3 - connect to REC session"
   echo "4 - rename and convert recorded files"
-  echo "5 - clean up all directories"
+  echo "5 - clean up USB directories"
   echo "6 - start watering"
   echo "7 - connect to WAT session"
   echo "8 - start streaming to Youtube"
+  echo "9 - Make a camera shot"
   
   echo "0 - exit"
   echo ""
@@ -119,6 +132,7 @@ ShowLastActionResult
 	  6) Watering;;
 	  7) WatConnect;;
 	  8) Streaming;;
+          9) CamShot;;
 
 	  *) ;;
 	esac
